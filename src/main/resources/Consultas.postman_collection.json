@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "d2f5da89-3584-4a34-b457-74353f920665",
+		"name": "Consultas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40373282"
+	},
+	"item": [
+		{
+			"name": "buscar por curso",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/students/enrolled/Programacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"students",
+						"enrolled",
+						"Programacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buscar por creditos>=?",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/courses/by-credit/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"courses",
+						"by-credit",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buscar por cantidad de cursos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/students/course-count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"students",
+						"course-count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listado detallado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/courses/detailed-list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"courses",
+						"detailed-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buscar por fec_nacimiento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/students/by-birthdate/2000-01-01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"students",
+						"by-birthdate",
+						"2000-01-01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creditos totales",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/courses/total-credits/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"courses",
+						"total-credits",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
