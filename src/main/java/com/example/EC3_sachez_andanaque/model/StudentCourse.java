@@ -19,6 +19,17 @@ public class StudentCourse {
     @ManyToOne
     @JoinColumn(name = "CourseId", nullable = false)
     private Course course;
+    @ManyToOne
+    @JoinColumn(name = "notaId", nullable = false)
+    private Nota nota;
+
+    public Nota getNota() {
+        return nota;
+    }
+
+    public void setNota(Nota nota) {
+        this.nota = nota;
+    }
 
     public Integer getId() {
         return id;

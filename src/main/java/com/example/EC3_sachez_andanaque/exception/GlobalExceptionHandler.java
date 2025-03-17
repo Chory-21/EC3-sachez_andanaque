@@ -11,12 +11,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(StudentNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleStudentNotFoundException(StudentNotFoundException ex) {
-        return ex.getMessage();
+        return "ERROR " + ex.getMessage();
     }
 
-    @ExceptionHandler(CourseNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleCourseNotFoundException(CourseNotFoundException ex) {
-        return ex.getMessage();
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleGeneralException(Exception ex) {
+        return "Error interno del servidor: " + ex.getMessage();
     }
 }

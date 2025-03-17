@@ -1,6 +1,9 @@
 package com.example.EC3_sachez_andanaque.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "Nota")
@@ -24,12 +27,16 @@ public class Nota {
     @Column(nullable = false)
     private Double promedio;
 
+    @OneToMany(mappedBy = "nota")
+    @JsonManagedReference
+    private Set<StudentCourse> studentCourses;
+
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
+    @JoinColumn(name = "StudentId", nullable = false)
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
+    @JoinColumn(name = "CourseId", nullable = false)
     private Course course;
 
     @PrePersist
