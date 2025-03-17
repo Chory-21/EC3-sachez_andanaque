@@ -18,7 +18,7 @@ public class Student {
     private String nombre;
 
     @Column(nullable = false)
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -43,11 +43,11 @@ public class Student {
         this.nombre = nombre;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

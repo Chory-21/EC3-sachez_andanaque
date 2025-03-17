@@ -18,11 +18,11 @@ public class StudentCourseController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/register")
     public ResponseEntity<String> registrarEstudiante(@RequestParam String nombre, @RequestParam String dateOfBirth,
-                                                      @RequestParam String email, @RequestParam String curso,
-                                                      @RequestParam Integer creditos, @RequestParam String descripcion,
+                                                      @RequestParam String email, @RequestParam String cursoNombre,
+                                                      @RequestParam Integer credit, @RequestParam String descripcion,
                                                       @RequestParam Double nota1, @RequestParam Double nota2,
                                                       @RequestParam Double nota3, @RequestParam Double nota4) {
-        studentCourseService.registrarEstudiante(nombre, dateOfBirth, email, curso, creditos, descripcion, nota1, nota2, nota3, nota4);
+        studentCourseService.registrarEstudiante(nombre, dateOfBirth, email, cursoNombre, credit, descripcion, nota1, nota2, nota3, nota4);
         return ResponseEntity.ok("Estudiante registrado con éxito.");
     }
 

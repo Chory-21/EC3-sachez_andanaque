@@ -2,9 +2,12 @@ package com.example.EC3_sachez_andanaque.repository.impl;
 
 import com.example.EC3_sachez_andanaque.repository.StudentCourseRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
+import java.sql.Date;
+
 
 @Repository
 public class StudentProcedureRepositoryImpl implements StudentCourseRepository {
@@ -17,33 +20,41 @@ public class StudentProcedureRepositoryImpl implements StudentCourseRepository {
     @Transactional
     @Override
     public void registrarEstudiante(String nombre, String dateOfBirth, String email,
-                                    String curso, Integer creditos, String descripcion,
+                                    String cursoNombre, Integer credit, String descripcion,
                                     Double nota1, Double nota2, Double nota3, Double nota4) {
-        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("sp_RegistrarEstudianteConCursoYNotas");
-        query.registerStoredProcedureParameter(1, String.class, jakarta.persistence.ParameterMode.IN);
-        query.registerStoredProcedureParameter(2, String.class, jakarta.persistence.ParameterMode.IN);
-        query.registerStoredProcedureParameter(3, String.class, jakarta.persistence.ParameterMode.IN);
-        query.registerStoredProcedureParameter(4, String.class, jakarta.persistence.ParameterMode.IN);
-        query.registerStoredProcedureParameter(5, Integer.class, jakarta.persistence.ParameterMode.IN);
-        query.registerStoredProcedureParameter(6, String.class, jakarta.persistence.ParameterMode.IN);
-        query.registerStoredProcedureParameter(7, Double.class, jakarta.persistence.ParameterMode.IN);
-        query.registerStoredProcedureParameter(8, Double.class, jakarta.persistence.ParameterMode.IN);
-        query.registerStoredProcedureParameter(9, Double.class, jakarta.persistence.ParameterMode.IN);
-        query.registerStoredProcedureParameter(10, Double.class, jakarta.persistence.ParameterMode.IN);
+        try {
+            StoredProcedureQuery query = entityManager.createStoredProcedureQuery("sp_RegistrarAlumnoCurso");
+            query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(2, Date.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(5, Integer.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(7, Double.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(8, Double.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(9, Double.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(10, Double.class, ParameterMode.IN);
 
-        query.setParameter(1, nombre);
-        query.setParameter(2, dateOfBirth);
-        query.setParameter(3, email);
-        query.setParameter(4, curso);
-        query.setParameter(5, creditos);
-        query.setParameter(6, descripcion);
-        query.setParameter(7, nota1);
-        query.setParameter(8, nota2);
-        query.setParameter(9, nota3);
-        query.setParameter(10, nota4);
+            query.setParameter(1, nombre);
+            query.setParameter(2, Date.valueOf(dateOfBirth)); // Use Date.valueOf for correct parsing
+            query.setParameter(3, email);
+            query.setParameter(4, cursoNombre);
+            query.setParameter(5, credit);
+            query.setParameter(6, descripcion);
+            query.setParameter(7, nota1);
+            query.setParameter(8, nota2);
+            query.setParameter(9, nota3);
+            query.setParameter(10, nota4);
 
-        query.execute();
+            query.execute();
+        } catch (Exception e) {
+            // Log the exception details
+            System.err.println("Error executing stored procedure: " + e.getMessage());
+            e.printStackTrace();
+            throw e; // Re-throw the exception after logging
+        }
     }
+
     @Transactional
     @Override
     public Object listarEstudiantesConCursosYPromedios() {

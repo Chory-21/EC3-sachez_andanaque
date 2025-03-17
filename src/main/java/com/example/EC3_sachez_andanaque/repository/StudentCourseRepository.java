@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentCourseRepository {
-    void registrarEstudiante(String nombre, String dateOfBirth, String email, String curso,
-                             Integer creditos, String descripcion, Double nota1,
+    void registrarEstudiante(String nombre, String dateOfBirth, String email, String cursoNombre, Integer credit, String descripcion,
+                              Double nota1,
                              Double nota2, Double nota3, Double nota4);
 
     Object listarEstudiantesConCursosYPromedios();

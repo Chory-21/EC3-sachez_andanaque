@@ -14,9 +14,9 @@ public class StudentCourseService {
 
     // Método para registrar un estudiante con su curso y notas
     public void registrarEstudiante(String nombre, String dateOfBirth, String email,
-                                    String curso, Integer creditos, String descripcion,
-                                    Double nota1, Double nota2, Double nota3, Double nota4) {
-        studentCourseRepository.registrarEstudiante(nombre, dateOfBirth, email, curso, creditos, descripcion, nota1, nota2, nota3, nota4);
+                                    String curso,
+                                    Integer credit, String descripcion, Double nota1, Double nota2, Double nota3, Double nota4) {
+        studentCourseRepository.registrarEstudiante(nombre, dateOfBirth, email, curso,credit,descripcion, nota1, nota2, nota3, nota4);
     }
 
     // Método para listar estudiantes con cursos y promedios

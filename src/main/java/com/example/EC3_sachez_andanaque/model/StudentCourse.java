@@ -1,35 +1,30 @@
 package com.example.EC3_sachez_andanaque.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "StudentCourse")
 public class StudentCourse {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JsonBackReference
-    @JoinColumn(name = "StudentId", nullable = false)
+    @JoinColumn(name = "student_id", nullable = false) // Asegurar que el nombre de la columna es correcto
     private Student student;
 
-    @ManyToOne
-    @JoinColumn(name = "CourseId", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "course_id", nullable = false) // Se asegura que course_id es correcto
     private Course course;
-    @ManyToOne
-    @JoinColumn(name = "notaId", nullable = false)
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "nota_id", nullable = false) // Ajustado a la convención
     private Nota nota;
 
-    public Nota getNota() {
-        return nota;
-    }
-
-    public void setNota(Nota nota) {
-        this.nota = nota;
-    }
+    // Getters y Setters
 
     public Integer getId() {
         return id;
@@ -54,8 +49,12 @@ public class StudentCourse {
     public void setCourse(Course course) {
         this.course = course;
     }
+
+    public Nota getNota() {
+        return nota;
+    }
+
+    public void setNota(Nota nota) {
+        this.nota = nota;
+    }
 }
-
-
-
-
