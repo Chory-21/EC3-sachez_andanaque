@@ -1,6 +1,5 @@
 package com.example.EC3_sachez_andanaque.dto;
 
-
 public class UsuarioSeguridadDto {
     private Integer idusuario;
     private String nomusuario;

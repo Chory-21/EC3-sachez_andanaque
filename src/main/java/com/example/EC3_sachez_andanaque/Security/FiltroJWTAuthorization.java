@@ -23,27 +23,27 @@ public class FiltroJWTAuthorization extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-        try{
-            if(validarUsoDeToken(request)){
+        try {
+            if (validarUsoDeToken(request)) {
                 Claims claims = validarToken(request);
-                if(claims.get("Authorities") != null){
+                if (claims.get("Authorities") != null) {
                     cargarAutorizaciones(claims);
-                }else
+                } else
                     SecurityContextHolder.clearContext();
-            }else {
+            } else {
                 SecurityContextHolder.clearContext();
             }
             filterChain.doFilter(request, response);
-        }catch (ExpiredJwtException | UnsupportedJwtException
-                | MalformedJwtException ex){
+        } catch (ExpiredJwtException | UnsupportedJwtException
+                 | MalformedJwtException ex) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            ((HttpServletResponse)response).sendError(
+            ((HttpServletResponse) response).sendError(
                     HttpServletResponse.SC_FORBIDDEN,
                     ex.getMessage());
         }
     }
 
-    private void cargarAutorizaciones(Claims claims){
+    private void cargarAutorizaciones(Claims claims) {
         List<String> autorizaciones = (List<String>)
                 claims.get("Authorities");
         UsernamePasswordAuthenticationToken authToken =
@@ -57,19 +57,18 @@ public class FiltroJWTAuthorization extends OncePerRequestFilter {
                 authToken);
     }
 
-    private Claims validarToken(HttpServletRequest request){
+    private Claims validarToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization")
                 .replace("Bearer ", "");
         return Jwts.parser().setSigningKey(KEY.getBytes())
                 .parseClaimsJws(token).getBody();
     }
 
-    private boolean validarUsoDeToken(HttpServletRequest request){
+    private boolean validarUsoDeToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        if(token == null || !token.startsWith("Bearer ")){
-           return false;
+        if (token == null || !token.startsWith("Bearer ")) {
+            return false;
         }
         return true;
     }
-
 }

@@ -9,5 +9,4 @@ public interface UsuarioRepository extends
         JpaRepository<Usuario, Integer> {
     //select * from usuario where nomusuario = :nomusuario;
     Usuario findByNomusuario(String nomusuario);
-
 }

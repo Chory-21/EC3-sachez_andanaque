@@ -31,33 +31,38 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<UsuarioSeguridadDto> autenticarUsuario(
-            @RequestBody UsuarioLoginDto loginDto) throws Exception {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginDto.getUsuario(), loginDto.getPassword()
-                    )
-            );
-
-            if (authentication.isAuthenticated()) {
-                Usuario objUsuario = usuarioService.obtenerUsuarioxNomusuario(loginDto.getUsuario());
+            @RequestParam String usuario,
+            @RequestParam String password
+    ) throws Exception {
+        try{
+            Authentication authentication =
+                    authenticationManager.authenticate(
+                            new UsernamePasswordAuthenticationToken(usuario,
+                                    password));
+            if(authentication.isAuthenticated()){
+                Usuario objUsuario = usuarioService
+                        .obtenerUsuarioxNomusuario(usuario);
                 String token = generarToken(objUsuario);
-
-                UsuarioSeguridadDto usuarioSeguridadDto = new UsuarioSeguridadDto();
+                UsuarioSeguridadDto usuarioSeguridadDto
+                        = new UsuarioSeguridadDto();
                 usuarioSeguridadDto.setIdusuario(objUsuario.getIdusuario());
                 usuarioSeguridadDto.setNomusuario(objUsuario.getNomusuario());
                 usuarioSeguridadDto.setToken(token);
+                return new ResponseEntity<>(usuarioSeguridadDto,
+                        HttpStatus.OK);
+            }else{
+                UsuarioSeguridadDto usuarioSeguridadDto =
+                        new UsuarioSeguridadDto();
+                usuarioSeguridadDto
+                        .setMensajeError("Error en la autenticación");
+                return new ResponseEntity<>(usuarioSeguridadDto,
+                        HttpStatus.UNAUTHORIZED);
 
-                return new ResponseEntity<>(usuarioSeguridadDto, HttpStatus.OK);
-            } else {
-                UsuarioSeguridadDto usuarioSeguridadDto = new UsuarioSeguridadDto();
-                usuarioSeguridadDto.setMensajeError("Error en la autenticación");
-                return new ResponseEntity<>(usuarioSeguridadDto, HttpStatus.UNAUTHORIZED);
             }
-        } catch (Exception ex) {
-            throw new Exception(ex.getMessage());
+        }catch (Exception ex){
+            throw  new Exception(ex.getMessage());
         }
     }
 
@@ -80,8 +85,5 @@ public class AuthController {
                 .signWith(SignatureAlgorithm.HS512, clave.getBytes())
                 .compact();
 
-
     }
-
-
 }
